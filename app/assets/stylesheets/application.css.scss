@@ -48,12 +48,15 @@ body {
   margin-top: 28px;
 }
 @import "twitter/bootstrap-responsive";
-#map img {
-  max-width: none;
-}
 #map {
   height:400px;
   -webkit-box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, 0.7);
   box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, 0.7);
   border:1px solid rgba(0, 0, 0, 0.5);
+  img {
+    max-width: none;
+  }
+  label {
+    display:inline;padding:5px;
+  }
 }

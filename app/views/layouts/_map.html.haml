@@ -7,15 +7,33 @@
 :javascript
   $(document).ready(function() {
     map = new OpenLayers.Map('map', {controls: [
+      new OpenLayers.Control.LayerSwitcher(),
       new OpenLayers.Control.Navigation(),
-      new OpenLayers.Control.PanZoomBar(),
-      new OpenLayers.Control.OverviewMap()
+      new OpenLayers.Control.PanZoomBar()
     ]});
     map.theme = '/openlayers/style.css';
     var mapnik = new OpenLayers.Layer.OSM();
+    var gphy = new OpenLayers.Layer.Google(
+      "Google Physical",
+      {type: google.maps.MapTypeId.TERRAIN}
+      // used to be {type: G_PHYSICAL_MAP}
+    );
+    var gmap = new OpenLayers.Layer.Google(
+      "Google Streets", // the default
+      {numZoomLevels: 20}
+      // default type, no change needed here
+    );
+    var ghyb = new OpenLayers.Layer.Google(
+      "Google Hybrid",
+      {type: google.maps.MapTypeId.HYBRID, numZoomLevels: 20}
+      // used to be {type: G_HYBRID_MAP, numZoomLevels: 20}
+    );
     mapnik.tileOptions.crossOriginKeyword = null;
     var center = #{center.to_json};
     var markers = #{markers.to_json};
+    map.addLayer(ghyb);
+    map.addLayer(gphy);
+    map.addLayer(gmap);
     map.addLayer(mapnik);
     // map our coordinates from WGS-84 to OSM's projection
     var lonlat = new OpenLayers.LonLat(center['lng'],center['lat']).transform( new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject() );
