@@ -13,6 +13,7 @@
     ]});
     map.theme = '/openlayers/style.css';
     var mapnik = new OpenLayers.Layer.OSM();
+    mapnik.tileOptions.crossOriginKeyword = null;
     var center = #{center.to_json};
     var markers = #{markers.to_json};
     map.addLayer(mapnik);
