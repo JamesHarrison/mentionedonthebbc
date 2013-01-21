@@ -1,0 +1,30 @@
+#map
+%p.muted
+  %small.pull-right
+    Map data Creative Commons CC-BY-SA
+    = link_to 'OpenStreetMap', 'http://openstreetmap.org/'
+.clearfix
+:javascript
+  $(document).ready(function() {
+    map = new OpenLayers.Map('map', {controls: [
+      new OpenLayers.Control.Navigation(),
+      new OpenLayers.Control.PanZoomBar(),
+      new OpenLayers.Control.OverviewMap()
+    ]});
+    map.theme = '/openlayers/style.css';
+    var mapnik = new OpenLayers.Layer.OSM();
+    var center = #{center.to_json};
+    var markers = #{markers.to_json};
+    map.addLayer(mapnik);
+    // map our coordinates from WGS-84 to OSM's projection
+    var lonlat = new OpenLayers.LonLat(center['lng'],center['lat']).transform( new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject() );
+    map.setCenter(lonlat, 8);
+    // make a marker
+    var marker_layer = new OpenLayers.Layer.Markers( "Markers" );
+    map.addLayer(marker_layer);
+    marker_layer.addMarker(new OpenLayers.Marker(lonlat));
+    for (var i in markers) {
+      var location = new OpenLayers.LonLat(markers[i]['lng'],markers[i]['lat']).transform( new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject() );
+      marker_layer.addMarker(new OpenLayers.Marker(location));
+    }
+  });

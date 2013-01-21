@@ -1,0 +1,44 @@
+.page-header
+  %h1
+    %small Mention of
+    = @mention.name
+    %small
+      on
+      = @channel.name
+%p
+  Was a topic for approximately
+  %strong= distance_of_time_in_words(@mention.start, @mention.finish)
+  about
+  %strong= distance_of_time_in_words(@mention.start-1.minute, Time.now)
+  ago
+%p.muted
+  %small Mentions are delayed for around a minute compared to the live satellite/DTT distributed stream of the channel in question.
+= render partial: 'layouts/map', locals: {markers: @markers, center: @center}
+%hr
+%h5 More information
+%table.table.table-bordered.table-condensed
+  %tr
+    %th First mentioned
+    %td= @mention.start.iso8601
+  %tr
+    %th Last mentioned
+    %td= @mention.finish.iso8601
+  %tr
+    %th DBpedia Topic
+    %td= link_to @mention.topic, @mention.topic
+  %tr
+    %th Confidence
+    %td
+      = @mention.score*100
+      \%
+  %tr
+    %th Redux
+    %td
+      %small.muted
+        This link is for authorized
+        = link_to 'BBC Redux', 'http://en.wikipedia.org/wiki/BBC_Redux'
+        users only, and is a best-guess at programme start time.
+        %br
+        Try adjusting the hour value if you get a 500 error.
+      %br
+      = link_to 'Jump to segment within programme', "http://g.bbcredux.com/programme/#{@channel.shortname}/#{@mention.start.strftime("%Y-%m-%d")}/#{@mention.start.strftime("%H-00-00")}?start=#{(@mention.start.minute * 60) + @mention.start.second}"

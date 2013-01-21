@@ -1,0 +1,22 @@
+!!! 5
+%html
+  %head
+    %title Locations Mentioned on the BBC
+    = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag    "/openlayers/style.css"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    .container-narrow
+      .masthead
+        %ul.nav.nav-pills.pull-right
+          %li.active=link_to 'Home', '/'
+          %li=link_to 'Channels', '/channels'
+          %li=link_to 'Mentions', '/mentions'
+          %li=link_to 'About', '/about'
+        %h3.muted Mentioned on the BBC
+      %hr
+      = yield
+      %hr
+      .footer
+        %p A quickly hacked-together app by James Harrison

@@ -1,0 +1,5 @@
+# Sorry Google, we don't want you delving too deep.
+User-Agent: *
+Allow: /
+Disallow: /mentions
+Disallow: /channels

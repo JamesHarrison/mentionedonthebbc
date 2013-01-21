@@ -1,0 +1,11 @@
+.page-header
+  %h1 Browsing channels
+%p
+  This page lists recently mentioned topics on each channel
+- for c in @channels
+  %h3= c.name
+  - mentions = c.mentions.desc(:finish).limit(5)
+  - if mentions and not mentions.empty?
+    - for m in mentions
+      = link_to_mention(m)
+

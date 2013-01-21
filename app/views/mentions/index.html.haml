@@ -1,0 +1,22 @@
+.page-header
+  - if params[:q]
+    %h1
+      Searching near
+      = params[:q]
+  - else
+    %h1 All recent mentions
+
+= render partial: 'layouts/map', locals: {markers: @markers, center: @center}
+
+%form.form-search{action: '/mentions', method: 'GET'}
+  %input.input-medium.search-query{type: 'text', id: 'q', name:'q', placeholder: 'Enter a place name', value: params[:q]}
+  %select{id: 'range', name: 'range'}
+    %option{value: '1.0'} ~100km
+    %option{value: '0.55'} ~50km
+    %option{value: '0.26'} ~25km
+    %option{value: '0.13', selected: 'true'} ~15km
+    %option{value: '0.07'} ~7.5km
+  %button.btn{type:'submit'} Search
+
+- for m in @mentions
+  = link_to_mention(m)

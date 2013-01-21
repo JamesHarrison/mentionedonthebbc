@@ -1,0 +1,24 @@
+.page-header
+  %h1 About Mentioned on the BBC
+%p
+  Mentioned on the BBC is a mashup of several data sources.
+%p
+  The site displays all topics mentioned on BBC One, Two and News 24 which are places that can be related, via information mined from Wikipedia, to a geographic coordinate.
+%p
+  It also lets you search around places using these coordinates.
+%h3 How does it work?
+%p
+  The site is a Ruby on Rails powered wrapper around a few external APIs and makes use of linked data technologies and MongoDB. The APIs used are:
+%ul
+  %li
+    A
+    =link_to 'prototype API', 'http://livetopics.prototyping.bbc.co.uk/'
+    provided by BBC Research and Development onto the live titles
+  %li
+    The
+    =link_to 'DBpedia', 'http://dbpedia.org/About'
+    SPARQL endpoint for geographical reference information
+  %li
+    Google's geocoding API is used for turning search terms into latitude and longitude
+%p
+  Every five minutes, a background process on this site fetches the latest topics from the Live Topics API, queries DBpedia for each topic to see if a location is known (and if the topic relates to a place), and stores the results in a MongoDB database table with a geospatial index, which can then be queried to produce the pages on this site.
