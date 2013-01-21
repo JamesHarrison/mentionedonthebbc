@@ -12,9 +12,9 @@
   %input.input-medium.search-query{type: 'text', id: 'q', name:'q', placeholder: 'Enter a place name', value: params[:q]}
   %select{id: 'range', name: 'range'}
     %option{value: '1.0'} ~100km
-    %option{value: '0.55'} ~50km
+    %option{value: '0.55', selected: 'true'} ~50km
     %option{value: '0.26'} ~25km
-    %option{value: '0.13', selected: 'true'} ~15km
+    %option{value: '0.13'} ~15km
     %option{value: '0.07'} ~7.5km
   %button.btn{type:'submit'} Search
 
