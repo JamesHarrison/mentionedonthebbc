@@ -17,6 +17,10 @@
     %option{value: '0.13'} ~15km
     %option{value: '0.07'} ~7.5km
   %button.btn{type:'submit'} Search
-
-- for m in @mentions
-  = link_to_mention(m)
+%ul
+  - for m in @mentions
+    %li
+      = link_to_mention(m)
+      = distance_of_time_in_words(Time.now, m.finish)
+      ago on
+      = m.channel.name
