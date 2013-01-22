@@ -1,11 +1,11 @@
 class MentionsController < ApplicationController
   def index
     if !params[:q]
-      @mentions = Mention.desc(:finish).limit(100)
+      @mentions = Mention.desc(:finish).limit(200)
       @center = {"lng"=>-0.116667, "lat"=>51.5, "title"=>"United Kingdom"}
     else
       @user_coords = Geocoder.search(params[:q]).first
-      @mentions = Mention.within_circle(location: [[@user_coords.longitude, @user_coords.latitude], params[:range].to_f])
+      @mentions = Mention.within_circle(location: [[@user_coords.longitude, @user_coords.latitude], params[:range].to_f]).limit(200)
       @center = {'lat'=>@user_coords.latitude, 'lng'=>@user_coords.longitude, 'title'=>"Your Coordinates"}
     end
     @markers = []
