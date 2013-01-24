@@ -14,4 +14,16 @@ class Mention
   index({topic: 1, start: 1, finish: 1})
   index(start: 1)
   index(score: 1)
+  def as_json(options)
+    {
+      channel_name: self.channel.name,
+      channel_shortname: self.channel.shortname,
+      topic: self.topic,
+      start: self.start,
+      finish: self.finish,
+      confidence: self.score,
+      location: self.location,
+      name: self.name
+    }
+  end
 end

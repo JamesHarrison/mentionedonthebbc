@@ -4,7 +4,8 @@
       Searching near
       = params[:q]
   - else
-    %h1 All recent mentions
+    %h1 
+      Mentioned recently
 
 = render partial: 'layouts/map', locals: {markers: @markers, center: @center}
 
@@ -24,3 +25,16 @@
       = distance_of_time_in_words(Time.now, m.finish)
       ago on
       = m.channel.name
+
+.well
+  %h4 Like your data in JSON?
+  %p
+    Simply append .json to this URL to GET our API. There are optional start and finish parameters, too, which must contain ISO 8601 datetime strings.
+  %p
+    For instance:
+    %br
+    %code= link_to '/mentions.json', '/mentions.json'
+  %p
+    And a more complex example with dates:
+    %br
+    %code= link_to '/mentions.json?start=2013-01-24T13:00Z&finish=2013-01-24T14:00Z', '/mentions.json?start=2013-01-24T13:00Z&finish=2013-01-24T14:00Z'
